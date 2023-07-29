@@ -8,13 +8,13 @@
                 </el-input>
             </el-form-item>
             <el-form-item prop="password">
-                <el-input v-model="loginForm.password" placeholder="密码" show-password size="large" type="password" @key.enter="">
+                <el-input v-model="loginForm.password" placeholder="密码" show-password size="large" type="password" @key.enter="handleLogin(ruleFormRef)">
                     <template #prefix><svg-icon icon-class="password"></svg-icon></template>
                 </el-input>
             </el-form-item>
             <el-form-item>
-                <el-button :loading="loading" type="primary"  @click.prevent="" style="width: 100%;">
-                    <span v-if="!loading">登陆</span>
+                <el-button :loading="loading" type="primary"  @click.prevent="handleLogin(ruleFormRef)" style="width: 100%;">
+                    <span v-if="!loading">登 陆</span>
                     <span v-else>登陆中...</span>
                 </el-button>
             </el-form-item>
@@ -27,9 +27,12 @@
     
 </template>
 <script setup lang="ts">
+import router from "@/router";
+import useStore from '@/store';
 import { FormInstance, FormRules} from 'element-plus';
 import { reactive,ref } from 'vue';
 
+const {user} = useStore();
 const ruleFormRef = ref<FormInstance>();
 const loading = ref(false);
 const loginForm = reactive({
@@ -42,6 +45,22 @@ const rules = reactive<FormRules>({
     password: [{ required: true, message: "请输入密码", trigger: "blur" }, { min: 6, message: "密码不能少于6位", trigger: "blur" }],
 });
 
+const handleLogin = async (formEl: FormInstance | undefined) => {
+    if(!formEl) return;
+    await formEl.validate((valid) => {
+        if(valid){
+            loading.value = true;
+            user.Login(loginForm).then(() => {
+                router.push({path: "/"});
+                loading.value = false; 
+            }).catch(() => {
+                loading.value = true;
+            });
+        }else {
+            return false;
+        }
+    })
+}
     
 </script>
 <style lang="scss" scoped>
