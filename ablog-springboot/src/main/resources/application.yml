@@ -1,0 +1,8 @@
+server:
+  port: 9080
+spring:
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+  application:
+    name: ABlogApplication
