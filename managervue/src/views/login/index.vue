@@ -24,14 +24,19 @@
             <span>Copyright © 2023 - {{ new Date().getFullYear }} By kuopeihsin</span>
         </div>
     </div>
+    <div>
+        <logo :collapse="ff"/>
+    </div>
     
 </template>
 <script setup lang="ts">
+import logo from "@/layouts/components/SideBar/Logo.vue";
 import router from "@/router";
 import useStore from '@/store';
 import { FormInstance, FormRules} from 'element-plus';
 import { reactive,ref } from 'vue';
 
+const ff = ref(false);
 const {user} = useStore();
 const ruleFormRef = ref<FormInstance>();
 const loading = ref(false);

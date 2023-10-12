@@ -1,7 +1,13 @@
 import useUserStore from "./modules/user";
+import useAppStore from "./modules/app";
+import useSettingStore from "./modules/setting";
+import usePermissionStore from "./modules/permission";
 
 const useStore = () =>({
-    user: useUserStore()
+    user: useUserStore(),
+    app: useAppStore(),
+    setting: useSettingStore(),
+    permission: usePermissionStore(),
 });
 
 export default useStore;

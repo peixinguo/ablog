@@ -1,4 +1,6 @@
 
+import Layout from "@/layouts/index.vue";
+import path from "path";
 import {createRouter, createWebHistory, RouteRecordRaw} from "vue-router";
 
 export const constantRoutes: RouteRecordRaw[] = [
@@ -9,6 +11,19 @@ export const constantRoutes: RouteRecordRaw[] = [
         meta: {
             hidden: true
         }
+    },
+    {
+        path: "",
+        component:Layout,
+        redirect:"/index",
+        children:[
+            {
+                path: "/index",
+                component: ()=> import("@/views/home/index.vue"),
+                name: "Index",
+                meta: {title: "首页", icon: "dashboard", affix: true},
+            },
+        ]
     },
 ];
 

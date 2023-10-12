@@ -16,7 +16,6 @@ const useUserStore = defineStore("useUserStore", {
           login(LoginForm)
             .then(({ data }) => {
               if (data.flag) {
-                
                 resolve(data);
               } else {
                 reject(data.msg);
